@@ -1,0 +1,64 @@
+html, body {
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+header {
+    border-bottom: 1px solid lightgray;
+    background-color: #2D2D2D;
+    height: 65px;
+    color: #FFF;
+}
+
+#logo {
+    background: url('../img/logo.png') center center no-repeat;
+    width: 80px;
+    height: 64px;
+    margin-left: 10px;
+    background-size: 42px auto;
+    display: inline-block;
+    float: left;
+}
+
+#logo-text {
+    display: inline-block;
+    height: 65px;
+    line-height: 65px;
+    font-family: 'PT Serif', serif;
+    font-size: 22px;
+    letter-spacing: 5px;
+}
+
+.header-nav {
+    float: right;
+}
+
+.header-nav a {
+    display: inline-block;
+    height: 65px;
+    line-height: 65px;
+    padding: 0 20px;
+    text-decoration: none;
+    color: white;
+}
+
+.header-nav a:hover {
+    background-color: #616161;
+}
+
+#controls {
+    height: 50px;
+    background-color: #CCC;
+}
+
+footer {
+    background-color: #2D2D2D;
+    height: 40px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    // position absolute FOR NOW till i setup sass and can calc :)
+}
+
+
+
