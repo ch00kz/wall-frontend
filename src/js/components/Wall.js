@@ -2,12 +2,14 @@ import React from "react";
 
 import Post from "./Post";
 import PostStore from "../stores/PostStore";
+// import just as you did an object
+import * as PostActions from "../actions/PostActions";
 
 export default class Wall extends React.Component {
     constructor() {
         super();
         this.state = {
-            posts: PostStore.getAllFromStore() // get intial state from post store
+            posts: PostStore.getAllFromStore(), // get intial state from post store
         }
     }
 
@@ -21,6 +23,16 @@ export default class Wall extends React.Component {
         });
     }
 
+    // For now just Adds post the store, todo: add async call
+    createNewPost() {
+        PostActions.AddPostToStore(this.state.newContent);
+    }
+
+    handleInputChange(e){
+        const newContent = e.target.value;
+        this.setState({newContent});
+    }
+
     render() {
         const posts = this.state.posts;
         // create an array of Post Components using array.map
@@ -32,8 +44,14 @@ export default class Wall extends React.Component {
                 user={post.user}></Post>;
         });
 
+    // on input change we set a value
     return (
         <div>
+            <br/>
+            <input placeholder="Be Respectful"
+                value={this.state.newContent}
+                onChange={this.handleInputChange.bind(this)} />
+            <button onClick={this.createNewPost.bind(this)}>Post</button>
             { postComponents }
         </div>
         );
