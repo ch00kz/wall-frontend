@@ -1,14 +1,24 @@
 import React from "react";
 
 import Post from "./Post";
-import postStore from "../stores/PostStore";
+import PostStore from "../stores/PostStore";
 
 export default class Wall extends React.Component {
     constructor() {
         super();
         this.state = {
-            posts: postStore.getAll() // get intial state from post store
+            posts: PostStore.getAllFromStore() // get intial state from post store
         }
+    }
+
+    // gets fired ONLY the  FIRST time component is about to be rendered.
+    // good place to add event listeners
+    componentWillMount() {
+        PostStore.on("change", () =>{
+            this.setState({
+                posts: PostStore.getAllFromStore()
+            });
+        });
     }
 
     render() {
