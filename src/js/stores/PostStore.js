@@ -1,5 +1,7 @@
 import { EventEmitter } from "events";
 
+import dispatcher from "../dispatcher";
+
 class PostStore extends EventEmitter {
     constructor() {
         super();
@@ -25,11 +27,33 @@ class PostStore extends EventEmitter {
         ];
     }
 
-    getAll() {
+    getAllFromStore() {
         return this.posts;
+    }
+
+    addPostToStore(content) {
+        this.posts.push({
+            id: Date.now(),
+            user: "Angry Person",
+            emotion: "Excited",
+            content
+        });
+        this.emit("change");
+    }
+
+    // after being registered with dispatcher we'll have the opportunity to react
+    // to any event that gets dispatched
+    handleActions(action) {
+        console.log("PostStore received ACTION:", action);
+        switch(action.type) {
+            case "ADD_POST_TO_STORE": {
+                this.addPostToStore(action.content)
+            }
+        }
     }
 }
 
 const postStore = new PostStore;
-
+dispatcher.register(postStore.handleActions.bind(postStore));
+window.dispatcher = dispatcher;
 export default postStore;
