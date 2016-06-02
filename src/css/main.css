@@ -60,5 +60,11 @@ footer {
     // position absolute FOR NOW till i setup sass and can calc :)
 }
 
+article.post {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+}
+
 
 
