@@ -23,6 +23,10 @@ export default class Wall extends React.Component {
         });
     }
 
+    // TODO: unbind listeners from unbound components (NB: input and button listeners)
+    // so that they dont fire when component has been unmounted
+    // Look into :componentWillUnmount
+
     // For now just Adds post the store, todo: add async call
     createNewPost() {
         PostActions.AddPostToStore(this.state.newContent);
