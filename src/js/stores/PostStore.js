@@ -32,7 +32,7 @@ class PostStore extends EventEmitter {
     }
 
     addPostToStore(content) {
-        this.posts.push({
+        this.posts.unshift({
             id: Date.now(),
             user: "Angry Person",
             emotion: "Excited",
