@@ -1,9 +1,17 @@
-html, body {
+html, body, #app {
   margin: 0;
-  font-family: 'Open Sans', sans-serif; }
+  height: 100%;
+  font-family: 'Lato', sans-serif; }
+  html > div, body > div, #app > div {
+    height: 100%; }
+
+main.container {
+  padding: 10px;
+  box-sizing: border-box;
+  height: calc(100% - 105px);
+  overflow: auto; }
 
 header {
-  border-bottom: 1px solid lightgray;
   background-color: #2D2D2D;
   height: 65px;
   color: #FFF; }
@@ -12,43 +20,85 @@ header {
     width: 80px;
     height: 64px;
     margin-left: 10px;
-    background-size: 42px auto;
+    background-size: 35px auto;
     display: inline-block;
     float: left; }
   header #logo-text {
     display: inline-block;
     height: 65px;
     line-height: 65px;
-    font-family: 'PT Serif', serif;
+    font-weight: 300;
     font-size: 22px;
     letter-spacing: 5px; }
+  header .header-nav {
+    float: right; }
+    header .header-nav a {
+      display: inline-block;
+      height: 65px;
+      line-height: 65px;
+      padding: 0 20px;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-weight: 300;
+      font-size: 13px;
+      color: white; }
+      header .header-nav a:hover {
+        background-color: #616161; }
 
-.header-nav {
-  float: right; }
+.clearFix:after, .new-post-textbox .controls:after {
+  content: "";
+  display: table;
+  clear: both; }
 
-.header-nav a {
-  display: inline-block;
-  height: 65px;
-  line-height: 65px;
-  padding: 0 20px;
-  text-decoration: none;
-  color: white; }
+.new-post-textbox textarea {
+  font-size: 15px;
+  display: block;
+  width: 100%;
+  height: 122px;
+  border: 1px solid #EAEAEA;
+  resize: none;
+  padding: 15px;
+  box-sizing: border-box;
+  margin-bottom: 0; }
+  .new-post-textbox textarea:focus {
+    outline: none; }
 
-.header-nav a:hover {
-  background-color: #616161; }
-
-#controls {
-  height: 50px;
-  background-color: #CCC; }
+.new-post-textbox .controls {
+  background: #EAEAEA;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  margin-bottom: 25px; }
+  .new-post-textbox .controls button {
+    position: relative;
+    top: 5px;
+    right: 8px;
+    float: right; }
 
 footer {
   background-color: #2D2D2D;
   height: 40px;
-  width: 100%;
-  position: absolute;
-  bottom: 0; }
+  width: 100%; }
 
 article.post {
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin: 10px; }
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid #EAEAEA;
+  border-radius: 4px;
+  background-color: white;
+  margin-bottom: 20px;
+  position: relative; }
+  article.post .post-title {
+    padding: 20px 30px;
+    padding-bottom: 10px;
+    font-weight: 600;
+    color: #229FFF; }
+    article.post .post-title .fa {
+      margin-left: 10px;
+      margin-right: 10px;
+      color: lightgray; }
+    article.post .post-title .emotion {
+      color: lightgray; }
+  article.post .post-body {
+    padding-left: 30px;
+    padding-top: 10px;
+    padding-bottom: 30px; }

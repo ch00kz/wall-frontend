@@ -1,9 +1,8 @@
 import React from "react";
 
 import Post from "./Post";
+import TextBox from "./TextBox";
 import PostStore from "../stores/PostStore";
-// import just as you did an object
-import * as PostActions from "../actions/PostActions";
 
 export default class Wall extends React.Component {
     constructor() {
@@ -28,14 +27,6 @@ export default class Wall extends React.Component {
     // Look into :componentWillUnmount
 
     // For now just Adds post the store, todo: add async call
-    createNewPost() {
-        PostActions.AddPostToStore(this.state.newContent);
-    }
-
-    handleInputChange(e){
-        const newContent = e.target.value;
-        this.setState({newContent});
-    }
 
     render() {
         const posts = this.state.posts;
@@ -51,11 +42,7 @@ export default class Wall extends React.Component {
     // on input change we set a value
     return (
         <div>
-            <br/>
-            <input placeholder="Be Respectful"
-                value={this.state.newContent}
-                onChange={this.handleInputChange.bind(this)} />
-            <button onClick={this.createNewPost.bind(this)}>Post</button>
+            <TextBox />
             { postComponents }
         </div>
         );

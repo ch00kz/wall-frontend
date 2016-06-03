@@ -8,8 +8,7 @@ export default class Layout extends React.Component {
     return (
       <div>
         <Header />
-          <div id="controls"></div>
-          <div class="container"> {this.props.children} </div>
+        <main class="container"> {this.props.children} </main>
         <Footer />
       </div>
     );
