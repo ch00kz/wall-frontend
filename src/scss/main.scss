@@ -1,5 +1,6 @@
 html, body, #app {
     margin: 0;
+    background-color: #f3f3f3;
     height: 100%;
     font-family: 'Lato', sans-serif;
     & > div {
@@ -7,27 +8,21 @@ html, body, #app {
     }
 }
 
-$headerHeight: 65px;
-$footerHeight: 40px;
-
-main.container {
-    padding: 10px;
-    box-sizing: border-box;
-    // the 20px is the padding ...
-    height: calc(100% - #{$headerHeight + $footerHeight});
-    overflow: auto;
-}
+$headerHeight: 80px;
 
 header {
     background-color: #2D2D2D;
-    height: 65px;
+    height: $headerHeight;
     color: #FFF;
+    position: fixed;
+    width: 100%;
+    z-index: 2;
+    border-bottom: 4px solid yellow;
 
     #logo {
         background: url('../img/logo.png') center center no-repeat;
-        width: 80px;
-        height: 64px;
-        margin-left: 10px;
+        width: 60px;
+        height: $headerHeight;
         background-size: 35px auto;
         display: inline-block;
         float: left;
@@ -35,24 +30,23 @@ header {
 
     #logo-text {
         display: inline-block;
-        height: 65px;
-        line-height: 65px;
+        font-family: 'Inconsolata', ;
+        height: $headerHeight;
+        line-height: $headerHeight;
         font-weight: 300;
         font-size: 22px;
-        letter-spacing: 5px;
     }
 
     .header-nav {
         float: right;
         a {
             display: inline-block;
-            height: 65px;
-            line-height: 65px;
+            height: $headerHeight;
+            line-height: $headerHeight;
             padding: 0 20px;
             text-decoration: none;
             text-transform: uppercase;
-            font-weight: 300;
-            font-size: 13px;
+            font-size: 12px;
             color: white;
 
             &:hover {
@@ -68,33 +62,80 @@ header {
     clear: both;
 }
 
+main.container {
+    padding-top: calc(#{$headerHeight} + 20px);
+    box-sizing: border-box;
+}
+
 .new-post-textbox {
     textarea {
         font-size: 15px;
         display: block;
         width: 100%;
         height: 122px;
-        border:1px solid #EAEAEA;
+        // border: 1px solid #BBBBBB;
+        border: none;
         resize: none;
         padding: 15px;
         box-sizing: border-box;
-        margin-bottom:0;
+        // border-bottom-left-radius: 0;
+        // border-bottom-right-radius: 0;
+        // margin-bottom:0;
         &:focus {
             outline: none;
         }
     }
     .controls {
         @extend .clearFix;
-        background:#EAEAEA;
+        border-top: none;
         border-bottom-left-radius: 4px;
         border-bottom-right-radius: 4px;
         margin-bottom: 25px;
         button {
-            position: relative;
-            top: 5px;
-            right: 8px;
+            // position: relative;
+            // top: 5px;
+            // right: 8px;
             float: right;
         }
+    }
+}
+
+article.post {
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #EAEAEA;
+    // border: 1px solid #BBBBBB;
+    background-color: white;
+    margin-bottom: 20px;
+    position: relative;
+    .post-header {
+        border-bottom: 1px solid #EAEAEA;
+        box-sizing: border-box;
+        height: 65px;
+        .user {
+            padding-top: 10px;
+            font-size: 16px;
+        }
+        .emotion {
+            font-size: 10px;
+            text-transform: uppercase;
+        }
+        .likes {
+            float: left;
+            height: 100%;
+            margin-right: 15px;
+            button {
+                height: 100%;
+                margin: 0;
+                border: none;
+                border-radius: 0;
+                border-right:1px solid #EAEAEA;
+                position: relative;
+            }
+        }
+    }
+    .post-body {
+        padding: 30px;
     }
 }
 
@@ -103,35 +144,5 @@ footer {
     height: 40px;
     width: 100%;
 }
-
-article.post {
-    margin-left: auto;
-    margin-right: auto;
-    border: 1px solid #EAEAEA;
-    border-radius: 4px;
-    background-color: white;
-    margin-bottom: 20px;
-    position: relative;
-    .post-title {
-        padding: 20px 30px;
-        padding-bottom: 10px;
-        font-weight: 600;
-        color: #229FFF;
-        .fa {
-            margin-left: 10px;
-            margin-right: 10px;
-            color: lightgray;
-        }
-        .emotion {
-            color: lightgray;
-        }
-    }
-    .post-body {
-        padding-left: 30px;
-        padding-top:10px;
-        padding-bottom: 30px;
-    }
-}
-
 
 

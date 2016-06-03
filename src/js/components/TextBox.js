@@ -21,11 +21,11 @@ export default class TextBox extends React.Component {
     render() {
         return (
             <div class="new-post-textbox">
-                <textarea placeholder="Be Respectful"
+                <textarea
                     value={this.state.newContent}
                     onChange={this.handleInputChange.bind(this)}></textarea>
                 <div class="controls">
-                    <button class="button-primary" onClick={this.createNewPost.bind(this)}>Post</button>
+                    <button onClick={this.createNewPost.bind(this)}>Post</button>
                 </div>
             </div>
         );

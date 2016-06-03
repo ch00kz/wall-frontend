@@ -1,46 +1,43 @@
 html, body, #app {
   margin: 0;
+  background-color: #f3f3f3;
   height: 100%;
   font-family: 'Lato', sans-serif; }
   html > div, body > div, #app > div {
     height: 100%; }
 
-main.container {
-  padding: 10px;
-  box-sizing: border-box;
-  height: calc(100% - 105px);
-  overflow: auto; }
-
 header {
   background-color: #2D2D2D;
-  height: 65px;
-  color: #FFF; }
+  height: 80px;
+  color: #FFF;
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+  border-bottom: 4px solid yellow; }
   header #logo {
     background: url("../img/logo.png") center center no-repeat;
-    width: 80px;
-    height: 64px;
-    margin-left: 10px;
+    width: 60px;
+    height: 80px;
     background-size: 35px auto;
     display: inline-block;
     float: left; }
   header #logo-text {
     display: inline-block;
-    height: 65px;
-    line-height: 65px;
+    font-family: "Inconsolata";
+    height: 80px;
+    line-height: 80px;
     font-weight: 300;
-    font-size: 22px;
-    letter-spacing: 5px; }
+    font-size: 22px; }
   header .header-nav {
     float: right; }
     header .header-nav a {
       display: inline-block;
-      height: 65px;
-      line-height: 65px;
+      height: 80px;
+      line-height: 80px;
       padding: 0 20px;
       text-decoration: none;
       text-transform: uppercase;
-      font-weight: 300;
-      font-size: 13px;
+      font-size: 12px;
       color: white; }
       header .header-nav a:hover {
         background-color: #616161; }
@@ -50,55 +47,62 @@ header {
   display: table;
   clear: both; }
 
+main.container {
+  padding-top: calc(80px + 20px);
+  box-sizing: border-box; }
+
 .new-post-textbox textarea {
   font-size: 15px;
   display: block;
   width: 100%;
   height: 122px;
-  border: 1px solid #EAEAEA;
+  border: none;
   resize: none;
   padding: 15px;
-  box-sizing: border-box;
-  margin-bottom: 0; }
+  box-sizing: border-box; }
   .new-post-textbox textarea:focus {
     outline: none; }
 
 .new-post-textbox .controls {
-  background: #EAEAEA;
+  border-top: none;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
   margin-bottom: 25px; }
   .new-post-textbox .controls button {
-    position: relative;
-    top: 5px;
-    right: 8px;
     float: right; }
-
-footer {
-  background-color: #2D2D2D;
-  height: 40px;
-  width: 100%; }
 
 article.post {
   margin-left: auto;
   margin-right: auto;
   border: 1px solid #EAEAEA;
-  border-radius: 4px;
   background-color: white;
   margin-bottom: 20px;
   position: relative; }
-  article.post .post-title {
-    padding: 20px 30px;
-    padding-bottom: 10px;
-    font-weight: 600;
-    color: #229FFF; }
-    article.post .post-title .fa {
-      margin-left: 10px;
-      margin-right: 10px;
-      color: lightgray; }
-    article.post .post-title .emotion {
-      color: lightgray; }
+  article.post .post-header {
+    border-bottom: 1px solid #EAEAEA;
+    box-sizing: border-box;
+    height: 65px; }
+    article.post .post-header .user {
+      padding-top: 10px;
+      font-size: 16px; }
+    article.post .post-header .emotion {
+      font-size: 10px;
+      text-transform: uppercase; }
+    article.post .post-header .likes {
+      float: left;
+      height: 100%;
+      margin-right: 15px; }
+      article.post .post-header .likes button {
+        height: 100%;
+        margin: 0;
+        border: none;
+        border-radius: 0;
+        border-right: 1px solid #EAEAEA;
+        position: relative; }
   article.post .post-body {
-    padding-left: 30px;
-    padding-top: 10px;
-    padding-bottom: 30px; }
+    padding: 30px; }
+
+footer {
+  background-color: #2D2D2D;
+  height: 40px;
+  width: 100%; }
