@@ -14,6 +14,7 @@
     "babel-preset-stage-0": "^6.3.13",
     "flux": "^2.1.1",
     "history": "^3.0.0",
+    "node-sass": "^3.7.0",
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
     "react-router": "^2.4.1",
@@ -22,6 +23,7 @@
   },
   "scripts": {
     "dev": "webpack-dev-server --content-base src --inline --hot",
+    "sass": "node-sass --watch src/scss --output src/css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
