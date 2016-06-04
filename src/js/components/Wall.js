@@ -9,26 +9,30 @@ import * as WallActions from "../actions/WallActions";
 export default class Wall extends React.Component {
     constructor() {
         super();
+        this.getPosts = this.getPosts.bind(this);
         this.state = {
             posts: PostStore.getAllFromStore(), // get intial state from post store
         }
     }
 
+     getPosts() {
+        this.setState({
+            posts: PostStore.getAllFromStore()
+        });
+    }
+
     // gets fired ONLY the  FIRST time component is about to be rendered.
     // good place to add event listeners
     componentWillMount() {
-        PostStore.on("change", () =>{
-            this.setState({
-                posts: PostStore.getAllFromStore()
-            });
-        });
-
+        PostStore.on("change", this.getPosts);
+        console.log(PostStore.listenerCount("change"));
         WallActions.WallLoaded();
     }
-
-    // TODO: unbind listeners from unbound components (NB: input and button listeners)
-    // so that they dont fire when component has been unmounted
-    // Look into :componentWillUnmount
+    // remove listeners from unbound components
+    // so that they dont fire after component has been unmounted
+     componentWillUnmount() {
+        PostStore.removeListener("change", this.getPosts);
+     }
 
     // For now just Adds post the store, todo: add async call
 
