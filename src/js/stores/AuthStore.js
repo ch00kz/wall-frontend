@@ -18,11 +18,10 @@ class AuthStore extends EventEmitter {
             password
         })
         .then(function (response) {
-            console.log(response);
             if (response.data.token) {
                 self.token = response.data.token;
                 self.user = response.data.user;
-                this.emit("login");
+                self.emit("login");
             }
         });
     }

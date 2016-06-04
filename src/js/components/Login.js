@@ -10,18 +10,19 @@ export default class Login extends React.Component {
         this.state = {
             username: "",
             password: ""
-        }
+        };
     }
 
-    handleSubmit() {
-        AuthActions.LoginUser(this.state.username, this.state.password)
+    handleSubmit(e) {
+        e.preventDefault();
+        AuthActions.LoginUser(this.state.username, this.state.password);
     }
 
     // one handler to handle all the fields
     // target id needs to be the same as the key in state dict
     handleInputChange(e) {
-        const field = {}
-        field[e.target.id] = e.target.value
+        const field = {};
+        field[e.target.id] = e.target.value;
         this.setState(field);
     }
 
@@ -46,7 +47,7 @@ export default class Login extends React.Component {
                         />
                     </div>
                 </div>
-                <button class="button-primary">Login</button>
+                <button type="submit" class="button-primary">Login</button>
             </form>
         );
     }
