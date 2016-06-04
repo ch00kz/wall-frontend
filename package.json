@@ -15,12 +15,10 @@
     "babel-preset-stage-0": "^6.3.13",
     "flux": "^2.1.1",
     "history": "^3.0.0",
-    "json-loader": "^0.5.4",
     "node-sass": "^3.7.0",
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
     "react-router": "^2.4.1",
-    "request": "^2.72.0",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
   },
