@@ -1,6 +1,7 @@
 import React from "react";
 
 import * as AuthActions from "../actions/AuthActions";
+import AuthStore from "../stores/AuthStore";
 
 export default class Login extends React.Component {
     constructor() {
