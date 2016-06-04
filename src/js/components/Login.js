@@ -3,6 +3,9 @@ import React from "react";
 import * as AuthActions from "../actions/AuthActions";
 import AuthStore from "../stores/AuthStore";
 
+import { hashHistory } from 'react-router';
+
+
 export default class Login extends React.Component {
     constructor() {
         super();
@@ -11,6 +14,12 @@ export default class Login extends React.Component {
             username: "",
             password: ""
         };
+    }
+
+    componentWillMount() {
+        if (AuthStore.getUser()){
+            hashHistory.replace('/');
+        }
     }
 
     handleSubmit(e) {

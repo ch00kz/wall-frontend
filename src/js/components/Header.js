@@ -20,7 +20,7 @@ export default class Header extends React.Component {
     }
 
     updateUser() {
-        console.log("update user triggered");
+        console.log("[HEADER] update user triggered");
         const user = true;
         this.setState({user});
     }
@@ -33,6 +33,7 @@ export default class Header extends React.Component {
                     <nav class="header-nav">
                         <Link to="/">Wall</Link>
                         { this.state.user ? <Link to='notifications'>Notifications</Link> : null }
+                        { this.state.user ? <Link to='notifications'>Logout</Link> : null }
                         { this.state.user ? null : <Link to='login'>Login</Link> }
                     </nav>
                 </div>
