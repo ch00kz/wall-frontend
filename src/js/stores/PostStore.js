@@ -1,34 +1,28 @@
 import { EventEmitter } from "events";
+import axios from "axios";
 
 import dispatcher from "../dispatcher";
+
 
 class PostStore extends EventEmitter {
     constructor() {
         super();
-        this.posts = [
-            {
-                id: 1,
-                content: "This really is a shit post.",
-                user: "Angry Person",
-                emotion: "Triggered",
-            },
-            {
-                id: 2,
-                content: "React is kinda cool ...",
-                user: "Angry Person",
-                emotion: "Happy",
-            },
-            {
-                id: 3,
-                content: "Is this working",
-                user: "Angry Person",
-                emotion: "Confused",
-            },
-        ];
+        this.posts = [];
     }
 
     getAllFromStore() {
         return this.posts;
+    }
+
+    fetchPosts() {
+        let self = this;
+        axios.get('http://localhost:9000/api/posts/')
+            .then(function(response) {
+                console.log(response.data);
+                self.posts = [];
+                // need to createFragment?
+                self.emit("change");
+            });
     }
 
     addPostToStore(content) {
@@ -47,7 +41,12 @@ class PostStore extends EventEmitter {
         console.log("PostStore received ACTION:", action);
         switch(action.type) {
             case "ADD_POST_TO_STORE": {
-                this.addPostToStore(action.content)
+                this.addPostToStore(action.content);
+                break;
+            }
+            case "WALL_LOADED": {
+               this.fetchPosts();
+               break;
             }
         }
     }
