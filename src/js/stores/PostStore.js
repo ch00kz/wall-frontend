@@ -2,6 +2,7 @@ import { EventEmitter } from "events";
 import axios from "axios";
 
 import dispatcher from "../dispatcher";
+import AuthStore from "./AuthStore";
 
 
 class PostStore extends EventEmitter {
@@ -23,10 +24,10 @@ class PostStore extends EventEmitter {
             });
     }
 
-    addPostToStore(content) {
+    addPost(content) {
         this.posts.unshift({
             id: Date.now(),
-            user: "Angry Person",
+            user: AuthStore.getUser(),
             emotion: "Excited",
             content
         });
@@ -39,7 +40,7 @@ class PostStore extends EventEmitter {
         console.log("PostStore received ACTION:", action);
         switch(action.type) {
             case "ADD_POST_TO_STORE": {
-                this.addPostToStore(action.content);
+                this.addPost(action.content);
                 break;
             }
             case "WALL_LOADED": {
