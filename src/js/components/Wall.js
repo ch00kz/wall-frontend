@@ -4,6 +4,8 @@ import Post from "./Post";
 import TextBox from "./TextBox";
 import PostStore from "../stores/PostStore";
 
+import * as WallActions from "../actions/WallActions";
+
 export default class Wall extends React.Component {
     constructor() {
         super();
@@ -20,6 +22,8 @@ export default class Wall extends React.Component {
                 posts: PostStore.getAllFromStore()
             });
         });
+
+        WallActions.WallLoaded();
     }
 
     // TODO: unbind listeners from unbound components (NB: input and button listeners)
