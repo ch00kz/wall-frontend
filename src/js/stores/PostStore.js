@@ -18,9 +18,7 @@ class PostStore extends EventEmitter {
         let self = this;
         axios.get('http://localhost:9000/api/posts/')
             .then(function(response) {
-                console.log(response.data);
-                self.posts = [];
-                // need to createFragment?
+                self.posts = response.data;
                 self.emit("change");
             });
     }

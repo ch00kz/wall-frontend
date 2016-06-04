@@ -40,7 +40,7 @@ export default class Wall extends React.Component {
                 key={post.id}
                 content={post.content}
                 emotion={post.emotion}
-                user={post.user}></Post>;
+                user={post.user.first_name + " " + post.user.last_name}></Post>;
         });
 
     // on input change we set a value
