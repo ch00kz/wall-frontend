@@ -1,8 +1,8 @@
 import dispatcher from "../dispatcher";
 
-export function UserLogin(username, password) {
+export function LoginUser(username, password) {
     dispatcher.dispatch({
-        type: "USER_LOGIN",
+        type: "LOGIN_USER",
         username,
         password,
     })

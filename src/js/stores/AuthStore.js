@@ -15,7 +15,7 @@ class AuthStore extends EventEmitter {
     handleActions(action) {
         console.log("AuthStore received ACTION:", action);
         switch(action.type) {
-            case "USER_LOGIN": {
+            case "LOGIN_USER": {
                 console.log(action.username, action.password)
                 break;
             }
