@@ -16,7 +16,8 @@ module.exports = {
           presets: ['react', 'es2015'],
           plugins: ['react-html-attrs', 'transform-class-properties', 'transform-decorators-legacy'],
         }
-      }
+      },
+      { test: /\.json$/, loader: 'json-loader' }
     ]
   },
   output: {
@@ -28,4 +29,10 @@ module.exports = {
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
   ],
+  node: {
+    console: 'empty',
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty'
+  }
 };
