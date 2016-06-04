@@ -7,7 +7,20 @@ import dispatcher from "../dispatcher";
 class AuthStore extends EventEmitter {
     constructor() {
         super();
-        this.posts = [];
+        this.user = {};
+    }
+
+    login(username, password) {
+        axios({
+            method: 'post',
+            url: 'http://localhost:9000/api/auth/',
+            auth: {
+                username: username,
+                password: password
+              }
+        }).then(function(response){
+            console.log(response);
+        });
     }
 
     // after being registered with dispatcher we'll have the opportunity to react
@@ -16,7 +29,7 @@ class AuthStore extends EventEmitter {
         console.log("AuthStore received ACTION:", action);
         switch(action.type) {
             case "LOGIN_USER": {
-                console.log(action.username, action.password)
+                login(action.username, action.password);
                 break;
             }
         }
@@ -26,3 +39,5 @@ class AuthStore extends EventEmitter {
 const authStore = new AuthStore;
 dispatcher.register(authStore.handleActions.bind(authStore));
 export default authStore;
+
+console.log("AuthStore");
