@@ -8,18 +8,22 @@ class AuthStore extends EventEmitter {
     constructor() {
         super();
         this.user = {};
+        this.token = {};
     }
 
     login(username, password) {
-        axios({
-            method: 'post',
-            url: 'http://localhost:9000/api/auth/',
-            auth: {
-                username: username,
-                password: password
-              }
-        }).then(function(response){
+        const self = this;
+        axios.post('http://localhost:9000/api/auth/', {
+            username,
+            password
+        })
+        .then(function (response) {
             console.log(response);
+            if (response.data.token) {
+                self.token = response.data.token;
+                self.user = response.data.user;
+                this.emit("login");
+            }
         });
     }
 
@@ -29,7 +33,7 @@ class AuthStore extends EventEmitter {
         console.log("AuthStore received ACTION:", action);
         switch(action.type) {
             case "LOGIN_USER": {
-                login(action.username, action.password);
+                this.login(action.username, action.password);
                 break;
             }
         }
