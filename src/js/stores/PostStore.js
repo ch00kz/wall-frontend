@@ -52,5 +52,4 @@ class PostStore extends EventEmitter {
 
 const postStore = new PostStore;
 dispatcher.register(postStore.handleActions.bind(postStore));
-window.dispatcher = dispatcher;
 export default postStore;
