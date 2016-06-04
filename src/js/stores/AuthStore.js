@@ -1,5 +1,7 @@
 import { EventEmitter } from "events";
 import axios from "axios";
+import cookie from "react-cookie";
+
 
 import dispatcher from "../dispatcher";
 
@@ -12,18 +14,44 @@ class AuthStore extends EventEmitter {
     }
 
     login(username, password) {
-        const self = this;
         axios.post('http://localhost:9000/api/auth/', {
             username,
             password
         })
-        .then(function (response) {
+        .then((response) => {
             if (response.data.token) {
-                self.token = response.data.token;
-                self.user = response.data.user;
-                self.emit("login");
+                this.token = response.data.token;
+                this.user = response.data.user;
+                cookie.save('user', this.user, { path: '/' });
+                cookie.save('token', this.token, { path: '/' });
+                this.emit("login");
             }
         });
+    }
+
+    getUserFromCookie() {
+        console.log("checking cookie for user");
+        const user = cookie.load('user');
+        const token = cookie.load('token');
+        if (user && token) {
+            console.log("got user",  user);
+            console.log("got token",  token);
+            this.user = user;
+            this.token = token;
+            this.emit("login");
+        }
+    }
+
+    logout() {
+        this.token = {};
+        this.user = {};
+        cookie.remove('token', { path: '/' });
+        cookie.remove('user', { path: '/' });
+        this.emit("logout");
+    }
+
+    getUser() {
+        return this.user;
     }
 
     // after being registered with dispatcher we'll have the opportunity to react
@@ -35,6 +63,10 @@ class AuthStore extends EventEmitter {
                 this.login(action.username, action.password);
                 break;
             }
+            case "LAYOUT_LOADED": {
+                this.getUserFromCookie();
+                break;
+            }
         }
     }
 }
@@ -42,5 +74,4 @@ class AuthStore extends EventEmitter {
 const authStore = new AuthStore;
 dispatcher.register(authStore.handleActions.bind(authStore));
 export default authStore;
-
-console.log("AuthStore");
+window.authStore = authStore
