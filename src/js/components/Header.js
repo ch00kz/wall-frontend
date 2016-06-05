@@ -7,7 +7,6 @@ import * as AuthActions from "../actions/AuthActions"
 
 export default class Header extends React.Component {
     render() {
-        console.log(this);
         return (
             <header>
                 <div class="container">

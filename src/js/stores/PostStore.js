@@ -11,25 +11,19 @@ class PostStore extends EventEmitter {
         this.posts = [];
     }
 
-    getAllFromStore() {
-        return this.posts;
-    }
-
     fetchPosts() {
-        let self = this;
-        axios.get('http://localhost:9000/api/posts/')
-            .then(function(response) {
-                self.posts = response.data;
-                self.emit("change");
-            });
+        axios.get('http://localhost:9000/api/posts/').then((response) => {
+            this.posts = response.data;
+            this.emit("change");
+        });
     }
 
     addPost(content) {
         this.posts.unshift({
             id: Date.now(),
+            time: Date.now(),
             user: AuthStore.getUser(),
-            emotion: "Excited",
-            content
+            content,
         });
         this.emit("change");
     }
@@ -39,7 +33,7 @@ class PostStore extends EventEmitter {
     handleActions(action) {
         // console.log("PostStore received ACTION:", action);
         switch(action.type) {
-            case "ADD_POST_TO_STORE": {
+            case "ADD_POST": {
                 this.addPost(action.content);
                 break;
             }

@@ -1,8 +1,9 @@
 import dispatcher from "../dispatcher";
 
-export function AddPostToStore(content) {
+export function AddPost(content, emotion) {
     dispatcher.dispatch({
-        type: "ADD_POST_TO_STORE",
+        type: "ADD_POST",
         content,
+        emotion,
     })
 }

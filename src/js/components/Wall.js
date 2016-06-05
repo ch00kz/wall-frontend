@@ -11,13 +11,13 @@ export default class Wall extends React.Component {
         super();
         this.getPosts = this.getPosts.bind(this);
         this.state = {
-            posts: PostStore.getAllFromStore(), // get intial state from post store
+            posts: PostStore.posts, // get intial state from post store
         }
     }
 
      getPosts() {
         this.setState({
-            posts: PostStore.getAllFromStore()
+            posts: PostStore.posts
         });
     }
 
@@ -25,7 +25,6 @@ export default class Wall extends React.Component {
     // good place to add event listeners
     componentWillMount() {
         PostStore.on("change", this.getPosts);
-        console.log(PostStore.listenerCount("change"));
         WallActions.WallLoaded();
     }
     // remove listeners from unbound components
@@ -43,7 +42,8 @@ export default class Wall extends React.Component {
             return <Post
                 key={post.id}
                 content={post.content}
-                emotion={post.emotion}
+                date={post.date}
+                likes={post.like_count}
                 user={post.user.first_name + " " + post.user.last_name}></Post>;
         });
 

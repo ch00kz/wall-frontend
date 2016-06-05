@@ -10,7 +10,7 @@ export default class TextBox extends React.Component {
     }
 
     createNewPost() {
-        PostActions.AddPostToStore(this.state.newContent);
+        PostActions.AddPost(this.state.newContent);
     }
 
     handleInputChange(e){
