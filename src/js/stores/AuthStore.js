@@ -54,6 +54,10 @@ class AuthStore extends EventEmitter {
         return this.user;
     }
 
+    getToken() {
+        return this.token;
+    }
+
     // after being registered with dispatcher we'll have the opportunity to react
     // to any event that gets dispatched
     handleActions(action) {

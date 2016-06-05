@@ -44,7 +44,7 @@ export default class Wall extends React.Component {
                 content={post.content}
                 date={post.date}
                 likes={post.like_count}
-                user={post.user.first_name + " " + post.user.last_name}></Post>;
+                user={post.user_data.first_name + " " + post.user_data.last_name}></Post>;
         });
 
     // on input change we set a value

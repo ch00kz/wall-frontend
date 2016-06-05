@@ -4,6 +4,7 @@ import axios from "axios";
 import dispatcher from "../dispatcher";
 import AuthStore from "./AuthStore";
 
+import moment from "moment";
 
 class PostStore extends EventEmitter {
     constructor() {
@@ -19,12 +20,28 @@ class PostStore extends EventEmitter {
     }
 
     addPost(content) {
+        const date = Date.now();
+        const user = AuthStore.getUser();
+
         this.posts.unshift({
             id: Date.now(),
-            time: Date.now(),
-            user: AuthStore.getUser(),
+            date: date,
+            user_data: user,
             content,
             "like_count": 0,
+        });
+
+        axios({
+            url: 'http://localhost:9000/api/posts/',
+            method: 'post',
+            data: {
+                date: moment(date),
+                content,
+                user: user.pk
+            },
+            headers: {'Authorization': 'Token ' + AuthStore.getToken()}
+        }).then((response) => {
+            // console.log(response);
         });
         this.emit("change");
     }
