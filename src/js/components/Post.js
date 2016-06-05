@@ -1,14 +1,21 @@
 import React from "react";
 import moment from "moment";
 
+import * as PostActions from "../actions/PostActions";
+
 export default class Post extends React.Component {
+
+    handleLikeClick() {
+        PostActions.LikePost(this.props.id);
+    }
+
     render() {
-        const date = moment(this.props.date).fromNow()
+        const date = moment(this.props.date).fromNow();
         return (
             <article class="post">
                 <div class="post-header">
                     <div class="like">
-                        <button>
+                        <button class={this.props.liked ? "liked" : ""} onClick={this.handleLikeClick.bind(this)}>
                             <i class="fa fa-heart-o"></i>
                         </button>
                     </div>

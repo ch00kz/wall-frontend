@@ -139,6 +139,9 @@ article.post {
                 border-radius: 0;
                 border-right:1px solid #EAEAEA;
                 position: relative;
+                &.liked {
+                    color: red;
+                }
             }
         }
     }

@@ -41,9 +41,11 @@ export default class Wall extends React.Component {
         const postComponents = posts.map((post) => {
             return <Post
                 key={post.id}
+                id={post.id}
                 content={post.content}
                 date={post.date}
                 likes={post.like_count}
+                liked={post.liked}
                 user={post.user_data.first_name + " " + post.user_data.last_name}></Post>;
         });
 

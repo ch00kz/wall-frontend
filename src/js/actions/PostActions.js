@@ -7,3 +7,10 @@ export function AddPost(content, emotion) {
         emotion,
     })
 }
+
+export function LikePost(id) {
+    dispatcher.dispatch({
+        type: "LIKE_POST",
+        id,
+    })
+}

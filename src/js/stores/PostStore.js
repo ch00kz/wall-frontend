@@ -29,6 +29,7 @@ class PostStore extends EventEmitter {
             user_data: user,
             content,
             "like_count": 0,
+            "liked": false
         });
 
         axios({
@@ -57,7 +58,7 @@ class PostStore extends EventEmitter {
     // after being registered with dispatcher we'll have the opportunity to react
     // to any event that gets dispatched
     handleActions(action) {
-        // console.log("PostStore received ACTION:", action);
+        console.log("PostStore received ACTION:", action);
         switch(action.type) {
             case "ADD_POST": {
                 this.addPost(action.content);

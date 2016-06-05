@@ -104,6 +104,8 @@ article.post {
         border-radius: 0;
         border-right: 1px solid #EAEAEA;
         position: relative; }
+        article.post .post-header .like button.liked {
+          color: red; }
   article.post .post-body {
     padding: 30px; }
 
