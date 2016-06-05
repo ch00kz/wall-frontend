@@ -14,3 +14,10 @@ export function LikePost(id) {
         id,
     })
 }
+
+export function UnlikePost(id) {
+    dispatcher.dispatch({
+        type: "UNLIKE_POST",
+        id,
+    })
+}

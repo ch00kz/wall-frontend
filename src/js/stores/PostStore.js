@@ -55,10 +55,31 @@ class PostStore extends EventEmitter {
         this.emit("change");
     }
 
+    likePost(id, like) {
+         axios({
+            url: `http://localhost:9000/api/posts/${id}/like/`,
+            method: 'post',
+            data: {
+                like
+            },
+            headers: {'Authorization': 'Token ' + AuthStore.getToken()}
+        }).then((response) => {
+            // update liked and like_cout in local post store
+            for (var post of this.posts){
+                if (post.id == id) {
+                    post.liked = like;
+                    like ? post.like_count ++ : post.like_count --;
+                    break;
+                }
+            }
+            this.emit("change");
+        });
+    }
+
     // after being registered with dispatcher we'll have the opportunity to react
     // to any event that gets dispatched
     handleActions(action) {
-        console.log("PostStore received ACTION:", action);
+        // console.log("PostStore received ACTION:", action);
         switch(action.type) {
             case "ADD_POST": {
                 this.addPost(action.content);
@@ -67,6 +88,14 @@ class PostStore extends EventEmitter {
             case "WALL_LOADED": {
                this.fetchPosts();
                break;
+            }
+            case "LIKE_POST": {
+                this.likePost(action.id, true);
+                break;
+            }
+            case "UNLIKE_POST": {
+                this.likePost(action.id, false);
+                break;
             }
         }
     }
