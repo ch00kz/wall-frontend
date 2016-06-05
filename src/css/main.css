@@ -85,14 +85,19 @@ article.post {
     article.post .post-header .user {
       padding-top: 10px;
       font-size: 16px; }
-    article.post .post-header .emotion {
+    article.post .post-header .stats {
       font-size: 10px;
       text-transform: uppercase; }
-    article.post .post-header .likes {
+      article.post .post-header .stats .date {
+        margin-left: 15px; }
+      article.post .post-header .stats .likes {
+        float: left;
+        margin-right: 15px; }
+    article.post .post-header .like {
       float: left;
       height: 100%;
       margin-right: 15px; }
-      article.post .post-header .likes button {
+      article.post .post-header .like button {
         height: 100%;
         margin: 0;
         border: none;

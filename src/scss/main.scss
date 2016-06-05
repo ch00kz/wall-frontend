@@ -116,11 +116,19 @@ article.post {
             padding-top: 10px;
             font-size: 16px;
         }
-        .emotion {
+        .stats {
             font-size: 10px;
             text-transform: uppercase;
+            .date {
+                margin-left: 15px;
+            }
+            .likes {
+                float: left;
+                margin-right: 15px;
+            }
         }
-        .likes {
+
+        .like {
             float: left;
             height: 100%;
             margin-right: 15px;
