@@ -24,6 +24,7 @@ class PostStore extends EventEmitter {
             time: Date.now(),
             user: AuthStore.getUser(),
             content,
+            "like_count": 0,
         });
         this.emit("change");
     }
