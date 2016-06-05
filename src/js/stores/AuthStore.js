@@ -32,12 +32,9 @@ class AuthStore extends EventEmitter {
     }
 
     getUserFromCookie() {
-        console.log("checking cookie for user");
         const user = cookie.load('user');
         const token = cookie.load('token');
         if (user && token) {
-            console.log("got user",  user);
-            console.log("got token",  token);
             this.user = user;
             this.token = token;
             this.emit("login");
@@ -60,7 +57,7 @@ class AuthStore extends EventEmitter {
     // after being registered with dispatcher we'll have the opportunity to react
     // to any event that gets dispatched
     handleActions(action) {
-        console.log("AuthStore received ACTION:", action);
+        // console.log("AuthStore received ACTION:", action);
         switch(action.type) {
             case "LOGIN_USER": {
                 this.login(action.username, action.password);
