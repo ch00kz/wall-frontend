@@ -1,10 +1,10 @@
 import { EventEmitter } from "events";
-import axios from "axios";
+import moment from "moment";
 
 import dispatcher from "../dispatcher";
 import AuthStore from "./AuthStore";
+import httpClient from "../utils";
 
-import moment from "moment";
 
 class PostStore extends EventEmitter {
     constructor() {
@@ -13,10 +13,14 @@ class PostStore extends EventEmitter {
     }
 
     fetchPosts() {
-        axios.get('http://localhost:9000/api/posts/').then((response) => {
+        httpClient().get('/api/posts/').then((response) => {
             this.posts = response.data;
             this.emit("change");
         });
+    }
+
+    getPosts() {
+        return this.posts;
     }
 
     addPost(content) {
@@ -32,15 +36,11 @@ class PostStore extends EventEmitter {
             "liked": false
         });
 
-        axios({
-            url: 'http://localhost:9000/api/posts/',
-            method: 'post',
-            data: {
-                date: moment(date),
-                content,
-                user: user.pk
-            },
-            headers: {'Authorization': 'Token ' + AuthStore.getToken()}
+        httpClient().post('/api/posts/',
+        {
+            date: moment(date),
+            content,
+            user: user.pk
         }).then((response) => {
             const id = response.data.id;
             // set id to be pk from created item and not the data we set it as. In case
@@ -56,13 +56,9 @@ class PostStore extends EventEmitter {
     }
 
     likePost(id, like) {
-         axios({
-            url: `http://localhost:9000/api/posts/${id}/like/`,
-            method: 'post',
-            data: {
-                like
-            },
-            headers: {'Authorization': 'Token ' + AuthStore.getToken()}
+        httpClient().post(`/api/posts/${id}/like/`,
+        {
+           like,
         }).then((response) => {
             // update liked and like_cout in local post store
             for (var post of this.posts){
@@ -79,13 +75,21 @@ class PostStore extends EventEmitter {
     // after being registered with dispatcher we'll have the opportunity to react
     // to any event that gets dispatched
     handleActions(action) {
-        // console.log("PostStore received ACTION:", action);
+        console.log("PostStore received ACTION:", action);
         switch(action.type) {
             case "ADD_POST": {
                 this.addPost(action.content);
                 break;
             }
             case "WALL_LOADED": {
+               this.fetchPosts();
+               break;
+            }
+            case "LAYOUT_LOADED": {
+               this.fetchPosts();
+               break;
+            }
+            case "LOGOUT_USER": {
                this.fetchPosts();
                break;
             }
@@ -103,4 +107,5 @@ class PostStore extends EventEmitter {
 
 const postStore = new PostStore;
 dispatcher.register(postStore.handleActions.bind(postStore));
+window.postStore = postStore;
 export default postStore;

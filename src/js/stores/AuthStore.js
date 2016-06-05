@@ -1,9 +1,8 @@
 import { EventEmitter } from "events";
-import axios from "axios";
 import cookie from "react-cookie";
 import { hashHistory } from 'react-router';
 
-
+import httpClient from "../utils";
 import dispatcher from "../dispatcher";
 
 
@@ -11,11 +10,11 @@ class AuthStore extends EventEmitter {
     constructor() {
         super();
         this.user = {};
-        this.token = {};
+        this.token = "";
     }
 
     login(username, password) {
-        axios.post('http://localhost:9000/api/auth/', {
+        httpClient().post('/api/auth/', {
             username,
             password
         })
@@ -25,8 +24,8 @@ class AuthStore extends EventEmitter {
                 this.user = response.data.user;
                 cookie.save('user', this.user, { path: '/' });
                 cookie.save('token', this.token, { path: '/' });
-                hashHistory.replace('/');
                 this.emit("login");
+                hashHistory.replace('/');
             }
         });
     }
@@ -37,13 +36,15 @@ class AuthStore extends EventEmitter {
         if (user && token) {
             this.user = user;
             this.token = token;
+            // hashHistory.push('login');
             this.emit("login");
+        } else {
+            this.emit("logout");
         }
-        this.emit("logout");
     }
 
     logout() {
-        this.token = {};
+        this.token = "";
         this.user = {};
         cookie.remove('token', { path: '/' });
         cookie.remove('user', { path: '/' });

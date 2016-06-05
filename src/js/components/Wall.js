@@ -2,6 +2,8 @@ import React from "react";
 
 import Post from "./Post";
 import TextBox from "./TextBox";
+
+import AuthStore from "../stores/AuthStore";
 import PostStore from "../stores/PostStore";
 
 import * as WallActions from "../actions/WallActions";
@@ -11,13 +13,13 @@ export default class Wall extends React.Component {
         super();
         this.getPosts = this.getPosts.bind(this);
         this.state = {
-            posts: PostStore.posts, // get intial state from post store
+            posts: PostStore.getPosts(), // get intial state from post store
         }
     }
 
      getPosts() {
         this.setState({
-            posts: PostStore.posts
+            posts: PostStore.getPosts()
         });
     }
 
@@ -36,15 +38,14 @@ export default class Wall extends React.Component {
     // For now just Adds post the store, todo: add async call
 
     render() {
-        const posts = this.state.posts;
         // create an array of Post Components using array.map
-        const postComponents = posts.map((post) => {
+        const postComponents = this.state.posts.map((post) => {
             return <Post
                 key={post.id}
                 id={post.id}
                 content={post.content}
                 date={post.date}
-                likes={post.like_count}
+                likeCount={post.like_count}
                 liked={post.liked}
                 user={post.user_data.first_name + " " + post.user_data.last_name}></Post>;
         });
