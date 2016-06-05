@@ -17,7 +17,8 @@ export default class Login extends React.Component {
     }
 
     componentWillMount() {
-        if (AuthStore.getUser()){
+        if (AuthStore.getUser()['pk']){
+            console.log("redirecting..");
             hashHistory.replace('/');
         }
     }

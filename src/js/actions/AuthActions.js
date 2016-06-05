@@ -7,3 +7,9 @@ export function LoginUser(username, password) {
         password,
     })
 }
+
+export function LogoutUser() {
+    dispatcher.dispatch({
+        type: "LOGOUT_USER",
+    })
+}

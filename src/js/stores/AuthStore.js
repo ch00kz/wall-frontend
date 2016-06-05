@@ -1,6 +1,7 @@
 import { EventEmitter } from "events";
 import axios from "axios";
 import cookie from "react-cookie";
+import { hashHistory } from 'react-router';
 
 
 import dispatcher from "../dispatcher";
@@ -24,6 +25,7 @@ class AuthStore extends EventEmitter {
                 this.user = response.data.user;
                 cookie.save('user', this.user, { path: '/' });
                 cookie.save('token', this.token, { path: '/' });
+                hashHistory.replace('/');
                 this.emit("login");
             }
         });
@@ -40,6 +42,7 @@ class AuthStore extends EventEmitter {
             this.token = token;
             this.emit("login");
         }
+        this.emit("logout");
     }
 
     logout() {
@@ -61,6 +64,10 @@ class AuthStore extends EventEmitter {
         switch(action.type) {
             case "LOGIN_USER": {
                 this.login(action.username, action.password);
+                break;
+            }
+            case "LOGOUT_USER": {
+                this.logout();
                 break;
             }
             case "LAYOUT_LOADED": {

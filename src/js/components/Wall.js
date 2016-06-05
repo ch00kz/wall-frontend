@@ -50,7 +50,7 @@ export default class Wall extends React.Component {
     // on input change we set a value
     return (
         <div>
-            <TextBox />
+            { this.props.isLoggedIn ? <TextBox /> : null}
             { postComponents }
         </div>
         );
