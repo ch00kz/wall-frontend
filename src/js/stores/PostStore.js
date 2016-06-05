@@ -41,7 +41,15 @@ class PostStore extends EventEmitter {
             },
             headers: {'Authorization': 'Token ' + AuthStore.getToken()}
         }).then((response) => {
-            // console.log(response);
+            const id = response.data.id;
+            // set id to be pk from created item and not the data we set it as. In case
+            // of like or reply before data is pulled from server again
+            for (var post of this.posts){
+                if (post.id == date) {
+                    post.id = id;
+                    break;
+                }
+            }
         });
         this.emit("change");
     }
