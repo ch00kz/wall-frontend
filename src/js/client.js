@@ -7,6 +7,7 @@ import { createHashHistory } from 'history';
 import Layout from "./components/Layout";
 import Login from "./components/Login";
 import Notifications from './components/Notifications';
+import Register from './components/Register';
 import Wall from './components/Wall';
 
 const app = document.getElementById('app');
@@ -17,6 +18,7 @@ ReactDOM.render(
       <IndexRoute component={Wall}></IndexRoute>
       <Route path="notifications" component={Notifications}></Route>
       <Route path="login" component={Login}></Route>
+      <Route path="register" component={Register}></Route>
     </Route>
   </Router>,
 app);

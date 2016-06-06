@@ -150,6 +150,29 @@ article.post {
     }
 }
 
+#form-error {
+    border: 1px solid #ffffff;
+    background: #ffe3e3;
+    padding: 19px 29px;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+
+form {
+    .row {
+        margin-bottom: 10px;
+    }
+    label {
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: 300;
+    }
+    input {
+        border: 1px solid #e8e8e8 !important;
+    }
+}
+
+
 footer {
     background-color: #2D2D2D;
     height: 40px;

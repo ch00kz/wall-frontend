@@ -15,6 +15,7 @@ export default class Header extends React.Component {
                         <Link to="/">Wall</Link>
                         { this.props.isLoggedIn ? <Link to='notifications'>Notifications</Link> : null }
                         { this.props.isLoggedIn ? <a href="#" onClick={this.props.logout}>Logout</a> : null }
+                        { this.props.isLoggedIn ? null : <Link to='register'>Sign Up</Link> }
                         { this.props.isLoggedIn ? null : <Link to='login'>Login</Link> }
                     </nav>
                 </div>

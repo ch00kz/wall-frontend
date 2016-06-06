@@ -10,10 +10,7 @@ export default class Login extends React.Component {
     constructor() {
         super();
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.state = {
-            username: "",
-            password: ""
-        };
+        this.state = {};
     }
 
     componentWillMount() {
