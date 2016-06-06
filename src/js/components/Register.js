@@ -1,5 +1,6 @@
 import React from "react";
 import AuthStore from "../stores/AuthStore";
+import * as AuthActions from "../actions/AuthActions";
 
 
 export default class Register extends React.Component {
@@ -36,8 +37,7 @@ export default class Register extends React.Component {
                 return
             }
         }
-        console.log("looks like we're all good");
-        // AuthActions.LoginUser(this.state.username, this.state.password);
+        AuthActions.RegisterUser(this.state);
     }
 
     // one handler to handle all the fields

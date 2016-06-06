@@ -13,6 +13,22 @@ class AuthStore extends EventEmitter {
         this.token = "";
     }
 
+    register(formData) {
+        const data = {
+            username: formData.username,
+            password: formData.password,
+            email: formData.email,
+            first_name: formData.firstName,
+            last_name: formData.lastName,
+        }
+        httpClient().post('/api/auth/user/', data).then((response) => {
+            console.log(response);
+            if (response.status == 201) {
+                this.login(formData.username, formData.password);
+            }
+        });
+    }
+
     login(username, password) {
         httpClient().post('/api/auth/', {
             username,
@@ -74,6 +90,10 @@ class AuthStore extends EventEmitter {
             }
             case "LAYOUT_LOADED": {
                 this.getUserFromCookie();
+                break;
+            }
+            case "REGISTER_USER": {
+                this.register(action.formData);
                 break;
             }
         }

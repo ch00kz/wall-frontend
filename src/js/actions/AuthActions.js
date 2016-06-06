@@ -13,3 +13,10 @@ export function LogoutUser() {
         type: "LOGOUT_USER",
     })
 }
+
+export function RegisterUser(formData) {
+    dispatcher.dispatch({
+        type: "REGISTER_USER",
+        formData
+    })
+}
