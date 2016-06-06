@@ -20,7 +20,7 @@ export default class Register extends React.Component {
     }
 
     componentWillMount() {
-        if (AuthStore.getUser()['pk']){
+        if (AuthStore.isAuthenticated()){
             console.log("redirecting..");
             hashHistory.replace('/');
         }

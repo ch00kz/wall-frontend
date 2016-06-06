@@ -11,6 +11,7 @@ class AuthStore extends EventEmitter {
         super();
         this.user = {};
         this.token = "";
+        this.authenticatedUser = false;
     }
 
     register(formData) {
@@ -38,6 +39,7 @@ class AuthStore extends EventEmitter {
             if (response.data.token) {
                 this.token = response.data.token;
                 this.user = response.data.user;
+                this.authenticatedUser = true;
                 cookie.save('user', this.user, { path: '/' });
                 cookie.save('token', this.token, { path: '/' });
                 this.emit("login");
@@ -52,7 +54,7 @@ class AuthStore extends EventEmitter {
         if (user && token) {
             this.user = user;
             this.token = token;
-            // hashHistory.push('login');
+            this.authenticatedUser = true;
             this.emit("login");
         } else {
             this.emit("logout");
@@ -62,6 +64,7 @@ class AuthStore extends EventEmitter {
     logout() {
         this.token = "";
         this.user = {};
+        this.authenticatedUser = false;
         cookie.remove('token', { path: '/' });
         cookie.remove('user', { path: '/' });
         this.emit("logout");
@@ -69,6 +72,10 @@ class AuthStore extends EventEmitter {
 
     getUser() {
         return this.user;
+    }
+
+    isAuthenticated() {
+        return this.authenticatedUser;
     }
 
     getToken() {

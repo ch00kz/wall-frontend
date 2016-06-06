@@ -13,16 +13,21 @@ export default class Post extends React.Component {
     }
 
     handleLikeClick() {
-        const alreadyLiked = this.props.liked;
-        const likes = this.state.likes;
-        if (alreadyLiked) {
-            PostActions.UnlikePost(this.props.id);
-            this.setState({likes: likes - 1});
-            this.setState({liked: false});
-        } else {
-            PostActions.LikePost(this.props.id);
-            this.setState({likes: likes + 1});
-            this.setState({liked: true});
+        if (AuthStore.isAuthenticated()) {
+            const alreadyLiked = this.props.liked;
+            const likes = this.state.likes;
+            if (alreadyLiked) {
+                PostActions.UnlikePost(this.props.id);
+                this.setState({likes: likes - 1});
+                this.setState({liked: false});
+            } else {
+                PostActions.LikePost(this.props.id);
+                this.setState({likes: likes + 1});
+                this.setState({liked: true});
+            }
+        }
+        else {
+            alert("You need to be logged in to do that.");
         }
     }
 
