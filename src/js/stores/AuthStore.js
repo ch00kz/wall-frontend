@@ -12,6 +12,7 @@ class AuthStore extends EventEmitter {
         this.user = {};
         this.token = "";
         this.authenticatedUser = false;
+        this.formErrors = {}
     }
 
     register(formData) {
@@ -26,7 +27,13 @@ class AuthStore extends EventEmitter {
             console.log(response);
             if (response.status == 201) {
                 this.login(formData.username, formData.password);
+            } else {
+                console.log("wtf happened");
             }
+        }).catch((response)=>{
+            console.log(response);
+            this.formErrors = response.data
+            this.emit("regError");
         });
     }
 
@@ -45,6 +52,10 @@ class AuthStore extends EventEmitter {
                 this.emit("login");
                 hashHistory.replace('/');
             }
+        }).catch((response) => {
+            this.formErrors = response.data
+            console.log(this.formErrors);
+            this.emit("loginError");
         });
     }
 
@@ -70,6 +81,8 @@ class AuthStore extends EventEmitter {
         this.emit("logout");
     }
 
+    // convenience methods
+
     getUser() {
         return this.user;
     }
@@ -80,6 +93,10 @@ class AuthStore extends EventEmitter {
 
     getToken() {
         return this.token;
+    }
+
+     getFormErrors() {
+        return this.formErrors;
     }
 
     // after being registered with dispatcher we'll have the opportunity to react
