@@ -48,11 +48,11 @@ class PostStore extends EventEmitter {
             for (var post of this.posts){
                 if (post.id == date) {
                     post.id = id;
+                    this.emit("change");
                     break;
                 }
             }
         });
-        this.emit("change");
     }
 
     likePost(id, like) {
@@ -65,10 +65,10 @@ class PostStore extends EventEmitter {
                 if (post.id == id) {
                     post.liked = like;
                     like ? post.like_count ++ : post.like_count --;
+                    this.emit("change");
                     break;
                 }
             }
-            this.emit("change");
         });
     }
 
