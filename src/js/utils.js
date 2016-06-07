@@ -4,7 +4,7 @@ import  AuthStore from "./stores/AuthStore";
 // have to do this as a function so we always have oen with proper headers,
 // it will always check the authstore for the current user
 
-function httpClient() {
+export function httpClient() {
     const headers = {}
     const token = AuthStore.getToken();
     console.log("building new client with token", token);
@@ -19,4 +19,9 @@ function httpClient() {
     return client
 }
 
-export default httpClient
+// sets value in state dict with a key of (field id)
+export function handleInputChange(e) {
+    const field = {};
+    field[e.target.id] = e.target.value;
+    this.setState(field);
+}
