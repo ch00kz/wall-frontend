@@ -17,7 +17,7 @@ export default class Wall extends React.Component {
         }
     }
 
-     getPosts() {
+    getPosts() {
         this.setState({
             posts: PostStore.getPosts()
         });
@@ -47,6 +47,7 @@ export default class Wall extends React.Component {
                 date={post.date}
                 likeCount={post.like_count}
                 liked={post.liked}
+                replies={post.replies}
                 user={post.user_data.first_name + " " + post.user_data.last_name}></Post>;
         });
 

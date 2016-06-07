@@ -9,7 +9,6 @@ html, body, #app {
 }
 
 $headerHeight: 80px;
-
 header {
     background-color: #2D2D2D;
     height: $headerHeight;
@@ -18,15 +17,6 @@ header {
     width: 100%;
     z-index: 2;
     border-bottom: 4px solid yellow;
-
-    #logo {
-        background: url('../img/logo.png') center center no-repeat;
-        width: 60px;
-        height: $headerHeight;
-        background-size: 35px auto;
-        display: inline-block;
-        float: left;
-    }
 
     #logo-text {
         display: inline-block;
@@ -67,7 +57,7 @@ main.container {
     box-sizing: border-box;
 }
 
-.new-post-textbox {
+.new-post-textbox, .reply-to  {
     textarea {
         font-size: 15px;
         display: block;
@@ -82,10 +72,7 @@ main.container {
         }
     }
     .controls {
-        @extend .clearFix;
         border-top: none;
-        border-bottom-left-radius: 4px;
-        border-bottom-right-radius: 4px;
         margin-bottom: 25px;
         button {
             float: right;
@@ -93,17 +80,35 @@ main.container {
     }
 }
 
+.reply-to {
+    textarea {
+        margin-top: -10px;
+        height: 70px;
+        border-radius: 0px;
+        padding-right: 120px;
+    }
+    button {
+        float: right;
+        position: relative;
+        bottom: 68px;
+        right: 10px;
+    }
+}
+
+.new-post-textbox .controls {
+    @extend .clearFix;
+}
+
 article.post {
-    margin-left: auto;
-    margin-right: auto;
     border: 1px solid #EAEAEA;
     background-color: white;
     margin-bottom: 20px;
-    position: relative;
-    .post-header {
+
+    .post-header, .reply-header {
         border-bottom: 1px solid #EAEAEA;
         box-sizing: border-box;
         height: 65px;
+
         .user {
             padding-top: 10px;
             font-size: 16px;
@@ -137,9 +142,54 @@ article.post {
             }
         }
     }
+
+    .reply-header {
+        border-top: 1px solid #EAEAEA;
+        height: 45px;
+
+        .user {
+            padding-top:0;
+            display: inline-block;
+            line-height: 45px;
+            margin-left: 25px;
+        }
+
+        .stats {
+            display: inline-block;
+            line-height: 45px;
+            .date {
+                margin-left: 15px;
+            }
+            .likes {
+                float: left;
+                margin-left: 15px;
+            }
+        }
+
+        .like {
+            float: right;
+            margin-right:0;
+            button {
+                border-left:1px solid #EAEAEA;
+            }
+        }
+    }
+
+    .reply-body {
+        padding: 15px 30px;
+    }
     .post-body {
         padding: 30px;
     }
+}
+
+.replies-info {
+    padding: 5px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 10px;
+    background: #f3f3f3;
+    border-top: 1px solid #EAEAEA;
 }
 
 #form-error {
@@ -163,7 +213,6 @@ form {
         border: 1px solid #e8e8e8 !important;
     }
 }
-
 
 footer {
     background-color: #2D2D2D;

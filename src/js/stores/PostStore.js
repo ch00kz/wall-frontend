@@ -33,7 +33,8 @@ class PostStore extends EventEmitter {
             user_data: user,
             content,
             "like_count": 0,
-            "liked": false
+            "liked": false,
+            "replies": [],
         });
 
         httpClient().post('/api/posts/',
