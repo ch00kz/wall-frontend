@@ -14,7 +14,7 @@ export default class Post extends React.Component {
     }
 
     handleLikeClick() {
-        if (AuthStore.isAuthenticated()) {
+        if (this.props.isLoggedIn) {
             const alreadyLiked = this.props.liked;
             if (alreadyLiked) {
                 PostActions.UnlikePost(this.props.id);
@@ -27,8 +27,8 @@ export default class Post extends React.Component {
         }
     }
 
-    reply(id) {
-        console.log("Replying to", id);
+    reply() {
+        console.log("Replying to", this.props.id);
     }
 
     render() {
@@ -72,12 +72,12 @@ export default class Post extends React.Component {
                         })}
                     </div>
                 </article>
-                <div class="reply-to">
-                    <textarea></textarea>
-                    <div class="controls">
-                        <button onClick={this.reply.bind(this)}>Reply</button>
+                { this.props.isLoggedIn ?
+                    <div class="reply-to">
+                        <textarea></textarea>
+                        <div class="controls"><button onClick={this.reply.bind(this)}>Reply</button></div>
                     </div>
-                </div>
+                    : null }
             </div>
         );
     }

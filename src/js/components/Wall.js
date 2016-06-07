@@ -48,10 +48,10 @@ export default class Wall extends React.Component {
                 likeCount={post.like_count}
                 liked={post.liked}
                 replies={post.replies}
+                isLoggedIn={this.props.isLoggedIn}
                 user={post.user_data.first_name + " " + post.user_data.last_name}></Post>;
         });
 
-    // on input change we set a value
     return (
         <div>
             { this.props.isLoggedIn ? <TextBox /> : null}

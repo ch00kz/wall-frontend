@@ -13,9 +13,6 @@ export default class Reply extends React.Component {
     }
 
     handleLikeClick() {
-        console.log("WHAT?");
-        console.log("Parent", this.props.parent);
-
         if (AuthStore.isAuthenticated()) {
             const alreadyLiked = this.props.liked;
             if (alreadyLiked) {
