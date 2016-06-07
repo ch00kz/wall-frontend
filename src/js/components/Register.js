@@ -1,7 +1,7 @@
 import React from "react";
 import AuthStore from "../stores/AuthStore";
 import * as AuthActions from "../actions/AuthActions";
-
+import * as utils from "../utils";
 
 export default class Register extends React.Component {
 
@@ -52,14 +52,6 @@ export default class Register extends React.Component {
         AuthActions.RegisterUser(this.state);
     }
 
-    // one handler to handle all the fields
-    // target id needs to be the same as the key in state dict
-    handleInputChange(e) {
-        const field = {};
-        field[e.target.id] = e.target.value;
-        this.setState(field);
-    }
-
     getFormErrors() {
         const errorsDict = AuthStore.getFormErrors();
         let errors = [];
@@ -82,14 +74,14 @@ export default class Register extends React.Component {
                     <div class="six columns">
                         <label>Username</label>
                         <input class="u-full-width" type="text" id="username"
-                            onChange={this.handleInputChange.bind(this)}
+                            onChange={utils.handleInputChange.bind(this)}
                             value={this.state.username}
                          />
                     </div>
                     <div class="six columns">
                         <label>Email</label>
                         <input class="u-full-width" type="email" id="email"
-                            onChange={this.handleInputChange.bind(this)}
+                            onChange={utils.handleInputChange.bind(this)}
                             value={this.state.email}
                          />
                     </div>
@@ -98,14 +90,14 @@ export default class Register extends React.Component {
                     <div class="six columns">
                         <label>First Name</label>
                         <input class="u-full-width" type="text" id="firstName"
-                            onChange={this.handleInputChange.bind(this)}
+                            onChange={utils.handleInputChange.bind(this)}
                             value={this.state.firstName}
                          />
                     </div>
                     <div class="six columns">
                         <label>Last Name</label>
                         <input class="u-full-width" type="text" id="lastName"
-                            onChange={this.handleInputChange.bind(this)}
+                            onChange={utils.handleInputChange.bind(this)}
                             value={this.state.lastName}
                          />
                     </div>
@@ -114,14 +106,14 @@ export default class Register extends React.Component {
                     <div class="six columns">
                         <label for="exampleEmailInput">Password</label>
                         <input class="u-full-width" type="password" id="password"
-                            onChange={this.handleInputChange.bind(this)}
+                            onChange={utils.handleInputChange.bind(this)}
                             value={this.state.password}
                         />
                     </div>
                     <div class="six columns">
                         <label for="exampleEmailInput">Confirm Password</label>
                         <input class="u-full-width" type="password" id="confirmPassword"
-                            onChange={this.handleInputChange.bind(this)}
+                            onChange={utils.handleInputChange.bind(this)}
                             value={this.state.confirmPassword}
                         />
                     </div>

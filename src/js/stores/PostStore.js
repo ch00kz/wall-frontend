@@ -3,7 +3,7 @@ import moment from "moment";
 
 import dispatcher from "../dispatcher";
 import AuthStore from "./AuthStore";
-import httpClient from "../utils";
+import * as utils from "../utils";
 
 
 class PostStore extends EventEmitter {
@@ -13,7 +13,7 @@ class PostStore extends EventEmitter {
     }
 
     fetchPosts() {
-        httpClient().get('/api/posts/').then((response) => {
+        utils.httpClient().get('/api/posts/').then((response) => {
             this.posts = response.data;
             this.emit("change");
         });
@@ -37,7 +37,7 @@ class PostStore extends EventEmitter {
             "replies": [],
         });
 
-        httpClient().post('/api/posts/',
+        utils.httpClient().post('/api/posts/',
         {
             date: moment(date),
             content,
@@ -57,7 +57,7 @@ class PostStore extends EventEmitter {
     }
 
     likePost(id, parent, like) {
-        httpClient().post(`/api/posts/${id}/like/`,
+        utils.httpClient().post(`/api/posts/${id}/like/`,
         {
            like,
         }).then((response) => {
@@ -91,6 +91,38 @@ class PostStore extends EventEmitter {
         });
     }
 
+    reply(parent, content) {
+        const date = Date.now();
+        const user = AuthStore.getUser();
+
+        utils.httpClient().post(`/api/posts/${parent}/reply/`,
+        {
+            content,
+            date: moment(date),
+        }).then((response) => {
+            if (response.data.success) {
+                console.log("good things happened");
+                const id = response.data.reply_pk;
+                for (var post of this.posts){
+                    if(post.id == parent) {
+                        post.replies.push({
+                            id: id,
+                            date: date,
+                            user_data: user,
+                            content,
+                            "like_count": 0,
+                            "liked": false,
+                            "replies": [],
+                        });
+                        this.emit("change");
+                        break;
+                    }
+                }
+            }
+
+        });
+    }
+
     // after being registered with dispatcher we'll have the opportunity to react
     // to any event that gets dispatched
     handleActions(action) {
@@ -118,6 +150,10 @@ class PostStore extends EventEmitter {
             }
             case "UNLIKE_POST": {
                 this.likePost(action.id, action.parent, false);
+                break;
+            }
+            case "REPLY": {
+                this.reply(action.parent, action.content);
                 break;
             }
         }

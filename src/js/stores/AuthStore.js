@@ -2,7 +2,7 @@ import { EventEmitter } from "events";
 import cookie from "react-cookie";
 import { hashHistory } from 'react-router';
 
-import httpClient from "../utils";
+import * as utils from "../utils";
 import dispatcher from "../dispatcher";
 
 
@@ -23,7 +23,7 @@ class AuthStore extends EventEmitter {
             first_name: formData.firstName,
             last_name: formData.lastName,
         }
-        httpClient().post('/api/auth/user/', data).then((response) => {
+        utils.httpClient().post('/api/auth/user/', data).then((response) => {
             console.log(response);
             if (response.status == 201) {
                 this.login(formData.username, formData.password);
@@ -38,7 +38,7 @@ class AuthStore extends EventEmitter {
     }
 
     login(username, password) {
-        httpClient().post('/api/auth/', {
+        utils.httpClient().post('/api/auth/', {
             username,
             password
         })

@@ -24,3 +24,11 @@ export function UnlikePost(id, parent=null) {
         parent,
     })
 }
+
+export function Reply(parent, content) {
+    dispatcher.dispatch({
+        type: "REPLY",
+        parent,
+        content,
+    })
+}

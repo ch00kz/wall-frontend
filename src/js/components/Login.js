@@ -4,6 +4,7 @@ import * as AuthActions from "../actions/AuthActions";
 import AuthStore from "../stores/AuthStore";
 
 import { hashHistory } from 'react-router';
+import * as utils from "../utils";
 
 
 export default class Login extends React.Component {
@@ -43,14 +44,6 @@ export default class Login extends React.Component {
         AuthActions.LoginUser(this.state.username, this.state.password);
     }
 
-    // one handler to handle all the fields
-    // target id needs to be the same as the key in state dict
-    handleInputChange(e) {
-        const field = {};
-        field[e.target.id] = e.target.value;
-        this.setState(field);
-    }
-
     getFormErrors() {
         const errorsDict = AuthStore.getFormErrors();
         console.log(errorsDict);
@@ -74,7 +67,7 @@ export default class Login extends React.Component {
                     <div class="six columns">
                         <label for="exampleEmailInput">Username</label>
                         <input class="u-full-width" type="text" id="username"
-                            onChange={this.handleInputChange.bind(this)}
+                            onChange={utils.handleInputChange.bind(this)}
                             value={this.state.username}
                          />
                     </div>
@@ -83,7 +76,7 @@ export default class Login extends React.Component {
                     <div class="six columns">
                         <label for="exampleEmailInput">Password</label>
                         <input class="u-full-width" type="password" id="password"
-                            onChange={this.handleInputChange.bind(this)}
+                            onChange={utils.handleInputChange.bind(this)}
                             value={this.state.password}
                         />
                     </div>

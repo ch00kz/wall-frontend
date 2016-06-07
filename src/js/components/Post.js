@@ -4,6 +4,7 @@ import moment from "moment";
 import Reply from "./Reply";
 import * as PostActions from "../actions/PostActions";
 import AuthStore from "../stores/AuthStore";
+import * as utils from "../utils";
 
 export default class Post extends React.Component {
 
@@ -28,7 +29,7 @@ export default class Post extends React.Component {
     }
 
     reply() {
-        console.log("Replying to", this.props.id);
+        PostActions.Reply(this.props.id, this.state.replyContent);
     }
 
     render() {
@@ -74,7 +75,10 @@ export default class Post extends React.Component {
                 </article>
                 { this.props.isLoggedIn ?
                     <div class="reply-to">
-                        <textarea></textarea>
+                        <textarea id="replyContent"
+                            value={this.state.replyContent}
+                            onChange={utils.handleInputChange.bind(this)}
+                        ></textarea>
                         <div class="controls"><button onClick={this.reply.bind(this)}>Reply</button></div>
                     </div>
                     : null }
