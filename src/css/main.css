@@ -127,7 +127,8 @@ article.post {
       float: right;
       margin-right: 0; }
       article.post .reply-header .like button {
-        border-left: 1px solid #EAEAEA; }
+        border-left: 1px solid #EAEAEA;
+        border-right: none; }
   article.post .reply-body {
     padding: 15px 30px; }
   article.post .post-body {
