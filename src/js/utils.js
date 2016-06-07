@@ -13,7 +13,7 @@ function httpClient() {
     }
 
     const client = axios.create({
-        baseURL: 'http://192.168.1.136:9000',
+        baseURL: 'http://0.0.0.0:9000',
         headers
     });
     return client
