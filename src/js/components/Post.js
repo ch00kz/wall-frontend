@@ -16,15 +16,10 @@ export default class Post extends React.Component {
     handleLikeClick() {
         if (AuthStore.isAuthenticated()) {
             const alreadyLiked = this.props.liked;
-            const likes = this.state.likes;
             if (alreadyLiked) {
                 PostActions.UnlikePost(this.props.id);
-                this.setState({likes: likes - 1});
-                this.setState({liked: false});
             } else {
                 PostActions.LikePost(this.props.id);
-                this.setState({likes: likes + 1});
-                this.setState({liked: true});
             }
         }
         else {
@@ -34,12 +29,6 @@ export default class Post extends React.Component {
 
     reply(id) {
         console.log("Replying to", id);
-    }
-
-    componentWillMount() {
-        const likeCount = this.props.likeCount;
-        const liked = this.props.liked;
-        this.setState({likeCount, liked});
     }
 
     render() {
@@ -68,6 +57,7 @@ export default class Post extends React.Component {
                         { this.props.replies.map((reply) => {
                             return (
                                 <Reply
+                                    parent={this.props.id}
                                     key={reply.id}
                                     id={reply.id}
                                     content={reply.content}

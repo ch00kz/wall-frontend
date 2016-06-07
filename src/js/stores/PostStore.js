@@ -56,18 +56,36 @@ class PostStore extends EventEmitter {
         });
     }
 
-    likePost(id, like) {
+    likePost(id, parent, like) {
         httpClient().post(`/api/posts/${id}/like/`,
         {
            like,
         }).then((response) => {
-            // update liked and like_cout in local post store
+            // determine whether or not we are looking for post /  reply
+            const updatingReply = parent ? true : false;
+
             for (var post of this.posts){
-                if (post.id == id) {
-                    post.liked = like;
-                    like ? post.like_count ++ : post.like_count --;
-                    this.emit("change");
-                    break;
+                const target = updatingReply ? parent : id;
+                if (post.id == target) {
+
+                    if(updatingReply){
+                        // search through replies of parent
+                        for(var reply of post.replies) {
+                            if (reply.id == id) {
+                                // update liked and like_count of reply in local store
+                                reply.liked = like;
+                                like ? reply.like_count ++ : reply.like_count --;
+                                this.emit("change");
+                                break;
+                            }
+                        }
+                    } else {
+                        // update liked and like_count of post in local store
+                        post.liked = like;
+                        like ? post.like_count ++ : post.like_count --;
+                        this.emit("change");
+                        break;
+                    }
                 }
             }
         });
@@ -95,11 +113,11 @@ class PostStore extends EventEmitter {
                break;
             }
             case "LIKE_POST": {
-                this.likePost(action.id, true);
+                this.likePost(action.id, action.parent, true);
                 break;
             }
             case "UNLIKE_POST": {
-                this.likePost(action.id, false);
+                this.likePost(action.id, action.parent, false);
                 break;
             }
         }

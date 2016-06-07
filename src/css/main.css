@@ -84,7 +84,8 @@ article.post {
     height: 65px; }
     article.post .post-header .user, article.post .reply-header .user {
       padding-top: 10px;
-      font-size: 16px; }
+      font-size: 16px;
+      color: #4c91ff; }
     article.post .post-header .stats, article.post .reply-header .stats {
       font-size: 10px;
       text-transform: uppercase; }

@@ -13,17 +13,15 @@ export default class Reply extends React.Component {
     }
 
     handleLikeClick() {
+        console.log("WHAT?");
+        console.log("Parent", this.props.parent);
+
         if (AuthStore.isAuthenticated()) {
             const alreadyLiked = this.props.liked;
-            const likes = this.state.likes;
             if (alreadyLiked) {
-                PostActions.UnlikePost(this.props.id);
-                this.setState({likes: likes - 1});
-                this.setState({liked: false});
+                PostActions.UnlikePost(this.props.id, this.props.parent);
             } else {
-                PostActions.LikePost(this.props.id);
-                this.setState({likes: likes + 1});
-                this.setState({liked: true});
+                PostActions.LikePost(this.props.id, this.props.parent);
             }
         }
         else {
@@ -31,16 +29,8 @@ export default class Reply extends React.Component {
         }
     }
 
-    componentWillMount() {
-        const likeCount = this.props.likeCount;
-        const liked = this.props.liked;
-        this.setState({likeCount, liked});
-    }
-
     render() {
         const date = moment(this.props.date).fromNow();
-        const likeCount = this.state.likeCount
-        const liked = this.state.liked
         return (
             <article class="reply">
                 <div class="reply-header">
