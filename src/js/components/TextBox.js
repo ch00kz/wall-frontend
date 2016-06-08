@@ -11,6 +11,7 @@ export default class TextBox extends React.Component {
 
     createNewPost() {
         PostActions.AddPost(this.state.newContent);
+        this.setState({newContent: ""});
     }
 
     handleInputChange(e){

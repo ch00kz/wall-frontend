@@ -30,6 +30,7 @@ export default class Post extends React.Component {
 
     reply() {
         PostActions.Reply(this.props.id, this.state.replyContent);
+        this.setState({replyContent: ""});
     }
 
     render() {
