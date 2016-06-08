@@ -13,7 +13,6 @@ export default class Header extends React.Component {
                     <div id="logo-text">&gt;&gt; ./rant</div>
                     <nav class="header-nav">
                         <Link to="/">Wall</Link>
-                        { this.props.isLoggedIn ? <Link to='notifications'>Notifications</Link> : null }
                         { this.props.isLoggedIn ? <a href="#" onClick={this.props.logout}>Logout</a> : null }
                         { this.props.isLoggedIn ? null : <Link to='register'>Sign Up</Link> }
                         { this.props.isLoggedIn ? null : <Link to='login'>Login</Link> }
