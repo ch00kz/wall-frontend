@@ -1,6 +1,9 @@
 import React from "react";
+
+import FormErrors from "./FormErrors";
 import AuthStore from "../stores/AuthStore";
 import * as AuthActions from "../actions/AuthActions";
+
 import * as utils from "../utils";
 
 export default class Register extends React.Component {
@@ -8,7 +11,6 @@ export default class Register extends React.Component {
     constructor() {
         super();
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.getFormErrors = this.getFormErrors.bind(this);
         this.state = {
             username: "",
             email: "",
@@ -24,11 +26,11 @@ export default class Register extends React.Component {
             console.log("redirecting..");
             hashHistory.replace('/');
         }
-        AuthStore.on("regError", this.getFormErrors)
+        AuthStore.on("regError", utils.getFormErrors.bind(this))
     }
 
     componentWillUnmount() {
-        AuthStore.removeListener("regError", this.getFormErrors);
+        AuthStore.removeListener("regError", utils.getFormErrors.bind(this));
     }
 
     handleSubmit(e) {
@@ -38,38 +40,27 @@ export default class Register extends React.Component {
         for (var key of formKeys){
             if (this.state[key] == "") {
                 this.setState({
-                    errors: "There seems to be a problem with the form. Are there any empty fields?."
+                    errors: ["There seems to be a problem with the form. Are there any empty fields?."]
                 });
                 return;
             }
         }
         if (this.state.password !== this.state.confirmPassword) {
             this.setState({
-                errors: "Your passwords don't match."
+                errors: ["Your passwords don't match."]
             });
             return;
         }
         AuthActions.RegisterUser(this.state);
     }
 
-    getFormErrors() {
-        const errorsDict = AuthStore.getFormErrors();
-        let errors = [];
-        for(var key of Object.keys(errorsDict)){
-            var _errors = errorsDict[key];
-            console.log(_errors);
-            errors = _errors.map((_error) => {
-                console.log(_error);
-                return <li>{_error}</li>
-            });
-        }
-        this.setState({errors});
-    }
-
     render(){
         return (
             <form onSubmit={this.handleSubmit.bind(this)}>
-                { this.state.errors ? <div class="row"><ul id="form-error" class="twelve columns">{ this.state.errors }</ul></div> : null }
+                { this.state.errors ?
+                    <FormErrors errors={ this.state.errors }></FormErrors>
+                    : null
+                }
                 <div class="row">
                     <div class="six columns">
                         <label>Username</label>

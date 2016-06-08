@@ -142,12 +142,12 @@ article.post {
   background: #f3f3f3;
   border-top: 1px solid #EAEAEA; }
 
-#form-error {
+.form-errors {
   border: 1px solid #ffffff;
   background: #ffe3e3;
   padding: 19px 29px;
   border-radius: 3px;
-  margin-bottom: 20px; }
+  margin-bottom: 20px !important; }
 
 form .row {
   margin-bottom: 10px; }

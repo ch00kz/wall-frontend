@@ -1,16 +1,17 @@
 import React from "react";
+import { hashHistory } from 'react-router';
 
+import FormErrors from "./FormErrors";
 import * as AuthActions from "../actions/AuthActions";
 import AuthStore from "../stores/AuthStore";
 
-import { hashHistory } from 'react-router';
+
 import * as utils from "../utils";
 
 
 export default class Login extends React.Component {
     constructor() {
         super();
-        this.getFormErrors = this.getFormErrors.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
             username: "",
@@ -20,14 +21,13 @@ export default class Login extends React.Component {
 
     componentWillMount() {
         if (AuthStore.isAuthenticated()){
-            console.log("redirecting..");
             hashHistory.replace('/');
         }
-        AuthStore.on("loginError", this.getFormErrors)
+        AuthStore.on("loginError", utils.getFormErrors.bind(this))
     }
 
     componentWillUnmount() {
-        AuthStore.removeListener("loginError", this.getFormErrors);
+        AuthStore.removeListener("loginError", utils.getFormErrors.bind(this));
     }
 
     handleSubmit(e) {
@@ -36,7 +36,7 @@ export default class Login extends React.Component {
         for (var key of formKeys){
             if (this.state[key] == "") {
                 this.setState({
-                    errors: "There seems to be a problem with the form. Are there any empty fields?."
+                    errors: ["There seems to be a problem with the form. Are there any empty fields?."]
                 });
                 return;
             }
@@ -44,25 +44,13 @@ export default class Login extends React.Component {
         AuthActions.LoginUser(this.state.username, this.state.password);
     }
 
-    getFormErrors() {
-        const errorsDict = AuthStore.getFormErrors();
-        console.log(errorsDict);
-        let errors = [];
-        for(var key of Object.keys(errorsDict)){
-            var _errors = errorsDict[key];
-            console.log(_errors);
-            errors = _errors.map((_error) => {
-                console.log(_error);
-                return <li>{_error}</li>
-            });
-        }
-        this.setState({errors});
-    }
-
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                { this.state.errors ? <div class="row"><ul id="form-error" class="twelve columns">{ this.state.errors }</ul></div> : null }
+                { this.state.errors ?
+                    <FormErrors errors={ this.state.errors }></FormErrors>
+                    : null
+                }
                 <div class="row">
                     <div class="six columns">
                         <label for="exampleEmailInput">Username</label>

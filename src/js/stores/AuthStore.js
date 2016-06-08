@@ -54,7 +54,6 @@ class AuthStore extends EventEmitter {
             }
         }).catch((response) => {
             this.formErrors = response.data
-            console.log(this.formErrors);
             this.emit("loginError");
         });
     }
