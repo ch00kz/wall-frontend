@@ -18,6 +18,8 @@ export default class Register extends React.Component {
             lastName: "",
             password: "",
             confirmPassword: "",
+            "loading": false,
+            "errors": [],
         };
     }
 
@@ -35,13 +37,15 @@ export default class Register extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        // console.log(this.state);
+        this.setState({errors: []});
+        this.setState({loading: true});
         const formKeys = ['username','email','firstName','lastName','password','confirmPassword']
         for (var key of formKeys){
             if (this.state[key] == "") {
                 this.setState({
                     errors: ["There seems to be a problem with the form. Are there any empty fields?."]
                 });
+                this.setState({loading: false});
                 return;
             }
         }
@@ -49,6 +53,7 @@ export default class Register extends React.Component {
             this.setState({
                 errors: ["Your passwords don't match."]
             });
+            this.setState({loading: false});
             return;
         }
         AuthActions.RegisterUser(this.state);
@@ -57,7 +62,7 @@ export default class Register extends React.Component {
     render(){
         return (
             <form onSubmit={this.handleSubmit.bind(this)}>
-                { this.state.errors ?
+                { this.state.errors.length ?
                     <FormErrors errors={ this.state.errors }></FormErrors>
                     : null
                 }
@@ -109,7 +114,9 @@ export default class Register extends React.Component {
                         />
                     </div>
                 </div>
-                <button type="submit" class="button-primary">Register</button>
+                <button type="submit" class="button-primary">Register
+                { this.state.loading && !this.state.errors.length ? <i class="fa fa-cog fa-spin fa-2x fa-fw"></i> : null }
+                </button>
             </form>
         );
 
